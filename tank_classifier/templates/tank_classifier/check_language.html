@@ -1,0 +1,106 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{% static 'styles/styles.css' %}" rel="stylesheet" />
+    <title>OpenAI Language Classification</title>
+  </head>
+
+  <body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="#">MediaFutures-Faktisk</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'tankclassifier-home' %}">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'languageclassification-home' %}">Check Language <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="bg-dark py-5">
+      <div class="container px-5">
+          <div class="row gx-5 align-items-center justify-content-center">
+              <div class="col-lg-8 col-xl-7 col-xxl-6">
+                  <div class="my-5 text-center text-xl-start">
+                    <div class="row">
+                      <h3 class="display-7 fw-bolder mb-4" style="font-family:Arial, Helvetica, sans-serif; text-align: center; padding-right: 110px; color: rgb(235, 187, 57);">This system uses deep learning to check what language is being spoken in a given video/audio file.</h3>
+                      <div class="col-xl-5 col-xxl-5 d-none d-xl-block text-center">
+                        <img class="img-fluid rounded-3" src="https://mediafutures.no/wp-content/uploads/MF_LOGOSimpleVersion-white.png" alt="...">
+                      </div>
+                      <div class="col-xl-5 col-xxl-5 d-none d-xl-block text-center">
+                        <img class="img-fluid rounded-2" src="https://www.faktisk.no/images/faktisk-delebilde.png" alt="...">
+                      </div>
+                    </div>          
+                      <p class="lead fw-normal mt-4" style="color: aliceblue; font-family: 'Times New Roman', Times, serif;">Click on the button below to upload an audio/video file for analysis.</p>
+                      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                        <form method="post" enctype="multipart/form-data" style=" color: rgb(207, 207, 207);">
+                          {% csrf_token %}
+                          <input type="file" name="myfile">
+                          <button type="submit" id="btnUpload" class="btn btn-outline-warning btn-lg px-4 me-sm-3">Check</button>
+                        </form>
+                        <!-- <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+                          <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a> -->  
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                <!-- <h1 class="display-5 fw-bolder text-dark mb-2">AI</h1> -->
+                <img class="img-fluid rounded-3 my-3" src="https://static.vecteezy.com/system/resources/previews/006/464/063/large_2x/abstract-equalizer-wave-design-music-sound-wave-element-waveform-with-neon-color-gradient-wavy-line-background-free-photo.jpg" alt="...">
+              </div>
+          </div>
+      </div>
+  </header>
+
+  <section class="py-5" id="features">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Results</h2></div>
+            <div class="col-lg-8">
+                {% if language is not None %}
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Language</th>
+                        <!-- <th scope="col">Text</th> -->
+                        <th scope="col">Translation</th>
+                        <th scope="col">Spoken</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                          <tr>
+                            <td><p>{{ language }}</p></td>
+                            <!-- <td><p>{{ text }}</p></td> -->
+                            <td><p>{{ translation }}</p></td>
+                            <td><p>N/A</p></td>
+                          </tr>
+                    </tbody>
+                  </table>
+                  {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
