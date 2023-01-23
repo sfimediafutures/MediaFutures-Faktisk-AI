@@ -211,3 +211,12 @@ def langauge_classifier_view(request):
             'translation': result_translated,
         }
     return render(request, 'tank_classifier/check_language.html', context)
+
+
+
+# Create your views here.
+def tutorial(request):
+      
+    # render function takes argument  - request
+    # and return HTML as response
+    return render(request, "tank_classifier/tutorial.html")

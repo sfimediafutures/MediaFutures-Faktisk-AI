@@ -6,4 +6,5 @@ from django.conf import settings
 urlpatterns = [
     path('', views.tank_classifier_view, name='tankclassifier-home'),
     path('check_langauge/', views.langauge_classifier_view, name='languageclassification-home'),
+    path('tutorial/', views.tutorial, name='tutorial-home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
