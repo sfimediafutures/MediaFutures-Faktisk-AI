@@ -60,7 +60,7 @@ labels_map = ['Al Khalid', 'Arjun', 'Armata', 'Challenger 2', 'K2 Black Panther'
 
 model = timm.create_model('res2net50_26w_8s', pretrained=True, num_classes=20)
 weights_path = os.path.join(settings.STATICFILES_DIRS[0], "20_mbt_classifier_res2net_43_epochs.pth")
-model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(weights_path))
 model.eval()
 
 
@@ -211,3 +211,12 @@ def langauge_classifier_view(request):
             'translation': result_translated,
         }
     return render(request, 'tank_classifier/check_language.html', context)
+
+
+
+# Create your views here.
+def tutorial(request):
+      
+    # render function takes argument  - request
+    # and return HTML as response
+    return render(request, "tank_classifier/tutorial.html"
