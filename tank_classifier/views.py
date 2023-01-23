@@ -219,4 +219,4 @@ def tutorial(request):
       
     # render function takes argument  - request
     # and return HTML as response
-    return render(request, "tank_classifier/tutorial.html")
+    return render(request, "tank_classifier/tutorial.html"
