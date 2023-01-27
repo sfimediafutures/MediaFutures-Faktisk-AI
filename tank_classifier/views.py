@@ -22,6 +22,7 @@ from torchvision import datasets, transforms
 import numpy as np
 import base64
 import pandas as pd
+import urllib
 
 import whisper
 LANGUAGES = {
@@ -60,7 +61,7 @@ labels_map = ['Al Khalid', 'Arjun', 'Armata', 'Challenger 2', 'K2 Black Panther'
 
 model = timm.create_model('res2net50_26w_8s', pretrained=True, num_classes=20)
 weights_path = os.path.join(settings.STATICFILES_DIRS[0], "20_mbt_classifier_res2net_43_epochs.pth")
-model.load_state_dict(torch.load(weights_path))
+model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
 model.eval()
 
 
@@ -76,7 +77,7 @@ def get_prediction(request, image):
     fs = FileSystemStorage()
     filePathName = fs.save(image, fileObj)
     filePathName = fs.url(filePathName)
-    testimage = '.' + filePathName
+    testimage = '.' + urllib.parse.unquote(filePathName)
     img = Image.open(testimage).convert('RGB')
     tfms = transforms.Compose([transforms.Resize((384,384)), transforms.ToTensor(), 
                            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),])
@@ -219,4 +220,5 @@ def tutorial(request):
       
     # render function takes argument  - request
     # and return HTML as response
-    return render(request, "tank_classifier/tutorial.html"
+    return render(request, "tank_classifier/tutorial.html")
+
