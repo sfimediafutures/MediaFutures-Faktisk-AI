@@ -170,7 +170,7 @@ def tank_classifier_view(request):
         'image_name': image_name,
         'predictions': lisst,
     }
-    return render(request, 'tank_classifier/home.html', context)
+    return render(request, 'tank_classifier/tank.html', context)
 
 
 def langauge_classifier_view(request):
@@ -211,7 +211,7 @@ def langauge_classifier_view(request):
             'text': transcription,
             'translation': result_translated,
         }
-    return render(request, 'tank_classifier/check_language.html', context)
+    return render(request, 'tank_classifier/lang.html', context)
 
 
 
@@ -221,4 +221,10 @@ def tutorial(request):
     # render function takes argument  - request
     # and return HTML as response
     return render(request, "tank_classifier/tutorial.html")
+
+def test(request):
+    return render(request, "tank_classifier/base.html")
+
+def index(request):
+    return render(request, 'tank_classifier/landing.html')
 
