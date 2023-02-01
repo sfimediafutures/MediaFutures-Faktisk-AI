@@ -19,7 +19,7 @@ src=""
 
   <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark mb-4">
-      <a class="navbar-brand" href="#">MediaFutures-Faktisk</a>
+      <a class="navbar-brand" href="{% url 'tankclassifier-home' %}">MediaFutures-Faktisk</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,6 +30,9 @@ src=""
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'languageclassification-home' %}">Check Language</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tutorial-home' %}">Tutorial </a>
           </li>
         </ul>
       </div>
