@@ -28,9 +28,11 @@
             </div>
             <div class="row align-items-center justify-content-center">
                 <div class="col-auto">
-                    <form method="post" enctype="multipart/form-data" class="form-inline">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         {% csrf_token %}
                         {% bootstrap_form form size='lg' %}
+                        <div class="invalid-feedback">
+                        Please choose a valid file.</div>
                         {% bootstrap_button button_type="submit" content='Classify' button_class='btn-light' size='lg' %}
                     </form>
                 </div>

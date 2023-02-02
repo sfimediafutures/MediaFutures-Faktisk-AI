@@ -23,9 +23,9 @@
         </div>
         <div class="row align-items-center justify-content-center">
             <div class="col-auto pt-2">
-                <form method="post" enctype="multipart/form-data" style=" color: rgb(207, 207, 207);">
+                <form method="post" enctype="multipart/form-data" style=" color: rgb(207, 207, 207);" class="needs-validation" novalidate>
                     {% csrf_token %}
-                    <input class="form-control form-control-lg" type="file" name="myfile" accept="audio/*">
+                    <input class="form-control form-control-lg" type="file" name="myfile" accept="audio/*" required id="audiofile">
                     <button type="submit" id="btnUpload" class="btn btn-light btn-lg mt-3">Check</button>
                 </form>
             </div>
@@ -75,6 +75,5 @@
             });
         </script>
     {% endif %}
-
 
 {% endblock %}
