@@ -26,13 +26,13 @@ SECRET_KEY = 'django-insecure-=*@w1w0g@ao)2-(b_2ej$32%i$ma89(ub)boc!15rp^g1e^w($
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost']
-
+ALLOWED_HOSTS = ['127.0.0.1','localhost','faktisk.demo.mediafutures.no']
 
 # Application definition
 
 INSTALLED_APPS = [
     # 'tank_classifier.apps.TankClassifierConfig',
+    'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

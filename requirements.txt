@@ -8,3 +8,6 @@ Pillow~=9.0.1
 pathlib~=1.0.1
 grad-cam~=1.4.6
 whisper.ai
+gunicorn
+django-bootstrap5
+ffmpeg-python

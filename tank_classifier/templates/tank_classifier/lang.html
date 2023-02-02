@@ -1,0 +1,80 @@
+{% extends "tank_classifier/base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Language Checker{% endblock %}
+
+{% block content %}
+    <div class="container px-5 text-center vh-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 py-5">
+                <h1 class="display-1">Language Checker</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center pb-5">
+            <div class="col-auto">
+                <p class="fs-4">This system uses deep learning to check what language is being spoken in a given video/audio file.</p>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-auto">
+                <p class="fs-4">Select an audio file using the input below</p>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-auto pt-2">
+                <form method="post" enctype="multipart/form-data" style=" color: rgb(207, 207, 207);">
+                    {% csrf_token %}
+                    <input class="form-control form-control-lg" type="file" name="myfile" accept="audio/*">
+                    <button type="submit" id="btnUpload" class="btn btn-light btn-lg mt-3">Check</button>
+                </form>
+            </div>
+        </div>
+
+  <section class="py-5" id="features">
+    <div class="container px-5 my-5">
+        {% if language is not None %}
+        <div class="row mt-5" id="results">
+            <div class="col-auto">
+                <h2 class="display-5">Results:</h2>
+            </div>
+        </div>
+        <div class="row gx-5 justify-content-center align-items-center">
+            <div class="col-auto">
+
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Language</th>
+                        <!-- <th scope="col">Text</th> -->
+                        <th scope="col">Translation</th>
+                        <th scope="col">Spoken</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                          <tr>
+                            <td><p>{{ language }}</p></td>
+                            <!-- <td><p>{{ text }}</p></td> -->
+                            <td><p>{{ translation }}</p></td>
+                            <td><p>N/A</p></td>
+                          </tr>
+                    </tbody>
+                  </table>
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    </section>
+
+    </div>
+    {% if anchor is not None %}
+        <script type='text/javascript'>
+            $(document).ready(function(){
+            window.location = '#{{ anchor }}'
+            });
+        </script>
+    {% endif %}
+
+
+{% endblock %}
