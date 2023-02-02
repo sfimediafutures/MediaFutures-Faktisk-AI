@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href={% static 'favicon.ico' %}>
 </head>
 <body data-bs-theme="dark">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'index' %}">
         <img src="{% static 'MF_LOGOSimpleVersion_white.svg' %}" alt="MediaFutures" width="75" height="50">
@@ -40,6 +40,32 @@
 {% block content %}
 
 {% endblock content %}
+
+<div class="modal fade" id="searchingModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchingModalTitle">Performing Search</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Searching...</span>
+        </div>
+          <p>Please Wait</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>$(document).on('submit','form',function(){
+    $('#searchingModal').modal('show')
+   return true
+});
+</script>
 
 </body>
 </html>
