@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1','localhost','faktisk.demo.mediafutures.no']
 
 INSTALLED_APPS = [
     # 'tank_classifier.apps.TankClassifierConfig',
+    'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

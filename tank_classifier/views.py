@@ -142,6 +142,7 @@ def tank_classifier_view(request):
     tank_dict = None
     image_name = None
     lisst = []
+    anchor = None
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -153,6 +154,7 @@ def tank_classifier_view(request):
             try:
                 predicted_label, probs, tank_dict, image_name = get_prediction(request, image)
                 lisst.extend([list(a) for a in zip(predicted_label, probs)])
+                anchor = 'results'
                 # encoded_img = base64.b64encode(im.tobytes())
                 # byte_image = 'data:%s;base64,%s' % ('image/png', encoded_img)
             except RuntimeError as re:
@@ -169,6 +171,7 @@ def tank_classifier_view(request):
         'dictionary': tank_dict,
         'image_name': image_name,
         'predictions': lisst,
+        'anchor': anchor,
     }
     return render(request, 'tank_classifier/tank.html', context)
 
@@ -186,6 +189,7 @@ def langauge_classifier_view(request):
         file_path_refined = uploaded_file_url.split('\\')[-1]
         audio_path = os.path.join(settings.MEDIA_ROOT, file_path_refined)
         # load audio and pad/trim it to fit 30 seconds
+        print(audio_path)
         audio = whisper.load_audio(audio_path)
         audio = whisper.pad_or_trim(audio)
 
