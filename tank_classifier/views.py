@@ -93,40 +93,40 @@ def get_prediction(request, image):
         top_labels.append(labels_map[idx])
         probabilities.append(round(prob*100, 2))
 
-    tfms = transforms.Compose([transforms.Resize((384,384)), transforms.ToTensor(), ])
-    tensor = tfms(img).unsqueeze(0)
-    tensor = tensor.squeeze(0)
-    np_arr = tensor.cpu().detach().numpy()
-    np_arr = np_arr/np.amax(np_arr) # if float
-    np_arr = np_arr.transpose(1,2,0)
-    target_layers = [model.layer4]
-    input_tensor = tensor.unsqueeze(0)
+    # tfms = transforms.Compose([transforms.Resize((384,384)), transforms.ToTensor(), ])
+    # tensor = tfms(img).unsqueeze(0)
+    # tensor = tensor.squeeze(0)
+    # np_arr = tensor.cpu().detach().numpy()
+    # np_arr = np_arr/np.amax(np_arr) # if float
+    # np_arr = np_arr.transpose(1,2,0)
+    # target_layers = [model.layer4]
+    # input_tensor = tensor.unsqueeze(0)
+    #
+    # # Create an input tensor image for your model..
+    # # Note: input_tensor can be a batch tensor with several images!
+    #
+    # # Construct the CAM object once, and then re-use it on many images:
+    # cam = HiResCAM(model=model, target_layers=target_layers, use_cuda=False)
+    # targets = [ClassifierOutputTarget(1)]
+    #
+    # # You can also pass aug_smooth=True and eigen_smooth=True, to apply smoothing.
+    # grayscale_cam = cam(input_tensor=input_tensor, targets=None, aug_smooth=True, eigen_smooth=True)
+    #
+    # # In this example grayscale_cam has only one image in the batch:
+    # grayscale_cam = grayscale_cam[0, :]
+    # visualization = show_cam_on_image(np_arr, grayscale_cam, use_rgb=True)
+    # im = Image.fromarray(np.uint8(visualization))
+    # filePathName = filePathName.split(".")[0].split("/")[-1]
+    # image_path = os.path.join(settings.STATICFILES_DIRS[1], "")
+    # if not os.path.exists(image_path):
+    #     os.mkdir(image_path)
+    # image = im.save(f"{image_path}/{filePathName}.png")
+    # image_name = image_path+"/"+filePathName + ".png"
+    # image_name = image_name.replace('/','\\')
+    # image_name = image_name.split("/")[-1]
+    # # image_name = image_name.replace('\\','/')
 
-    # Create an input tensor image for your model..
-    # Note: input_tensor can be a batch tensor with several images!
-
-    # Construct the CAM object once, and then re-use it on many images:
-    cam = HiResCAM(model=model, target_layers=target_layers, use_cuda=False)
-    targets = [ClassifierOutputTarget(1)]
-
-    # You can also pass aug_smooth=True and eigen_smooth=True, to apply smoothing.
-    grayscale_cam = cam(input_tensor=input_tensor, targets=None, aug_smooth=True, eigen_smooth=True)
-
-    # In this example grayscale_cam has only one image in the batch:
-    grayscale_cam = grayscale_cam[0, :]
-    visualization = show_cam_on_image(np_arr, grayscale_cam, use_rgb=True)
-    im = Image.fromarray(np.uint8(visualization))
-    filePathName = filePathName.split(".")[0].split("/")[-1]
-    image_path = os.path.join(settings.STATICFILES_DIRS[1], "")
-    if not os.path.exists(image_path):
-        os.mkdir(image_path)
-    image = im.save(f"{image_path}/{filePathName}.png")
-    image_name = image_path+"/"+filePathName + ".png"
-    image_name = image_name.replace('/','\\')
-    image_name = image_name.split("/")[-1]
-    # image_name = image_name.replace('\\','/')
-
-    tanks_dataframe = pd.read_csv(os.path.join(settings.STATICFILES_DIRS[0], 'tanks_details.csv'))
+    tanks_dataframe = pd.read_csv(os.path.join(settings.STATICFILES_DIRS[0], 'tanks_details.csv'), encoding='latin1')
     row = tanks_dataframe.loc[tanks_dataframe['Name'] == top_labels[0]]
     tank_dict = row.to_dict('index')
 
