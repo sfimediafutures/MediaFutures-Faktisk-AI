@@ -1,50 +1,47 @@
 {% extends "tank_classifier/base.html" %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 {% block title %}Language Checker{% endblock %}
 
 {% block content %}
-
-    <header class="bg-dark py-5">
-      <div class="container px-5">
-          <div class="row gx-5 align-items-center justify-content-center">
-              <div class="col-lg-8 col-xl-7 col-xxl-6">
-                  <div class="my-5 text-center text-xl-start">
-                    <div class="row">
-                      <h3 class="display-7 fw-bolder mb-4" style="font-family:Arial, Helvetica, sans-serif; text-align: center; padding-right: 110px; color: rgb(235, 187, 57);">This system uses deep learning to check what language is being spoken in a given video/audio file.</h3>
-                      <div class="col-xl-5 col-xxl-5 d-none d-xl-block text-center">
-                        <img class="img-fluid rounded-3" src="https://mediafutures.no/wp-content/uploads/MF_LOGOSimpleVersion-white.png" alt="...">
-                      </div>
-                      <div class="col-xl-5 col-xxl-5 d-none d-xl-block text-center">
-                        <img class="img-fluid rounded-2" src="https://www.faktisk.no/images/faktisk-delebilde.png" alt="...">
-                      </div>
-                    </div>
-                      <p class="lead fw-normal mt-4" style="color: aliceblue; font-family: 'Times New Roman', Times, serif;">Click on the button below to upload an audio/video file for analysis.</p>
-                      <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                        <form method="post" enctype="multipart/form-data" style=" color: rgb(207, 207, 207);">
-                          {% csrf_token %}
-                          <input type="file" name="myfile">
-                          <button type="submit" id="btnUpload" class="btn btn-outline-warning btn-lg px-4 me-sm-3">Check</button>
-                        </form>
-                        <!-- <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
-                          <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a> -->
-                      </div>
-                  </div>
-              </div>
-              <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                <!-- <h1 class="display-5 fw-bolder text-dark mb-2">AI</h1> -->
-                <img class="img-fluid rounded-3 my-3" src="https://static.vecteezy.com/system/resources/previews/006/464/063/large_2x/abstract-equalizer-wave-design-music-sound-wave-element-waveform-with-neon-color-gradient-wavy-line-background-free-photo.jpg" alt="...">
-              </div>
-          </div>
-      </div>
-  </header>
+    <div class="container px-5 text-center vh-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-12 py-5">
+                <h1 class="display-1">Language Checker</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center pb-5">
+            <div class="col-auto">
+                <p class="fs-4">This system uses deep learning to check what language is being spoken in a given video/audio file.</p>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-auto">
+                <p class="fs-4">Select an audio file using the input below</p>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-auto pt-2">
+                <form method="post" enctype="multipart/form-data" style=" color: rgb(207, 207, 207);">
+                    {% csrf_token %}
+                    <input class="form-control form-control-lg" type="file" name="myfile" accept="audio/*">
+                    <button type="submit" id="btnUpload" class="btn btn-light btn-lg mt-3">Check</button>
+                </form>
+            </div>
+        </div>
 
   <section class="py-5" id="features">
     <div class="container px-5 my-5">
-        <div class="row gx-5">
-            <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Results</h2></div>
-            <div class="col-lg-8">
-                {% if language is not None %}
+        {% if language is not None %}
+        <div class="row mt-5" id="results">
+            <div class="col-auto">
+                <h2 class="display-5">Results:</h2>
+            </div>
+        </div>
+        <div class="row gx-5 justify-content-center align-items-center">
+            <div class="col-auto">
+
                   <table class="table">
                     <thead class="thead-dark">
                       <tr>
@@ -63,10 +60,21 @@
                           </tr>
                     </tbody>
                   </table>
-                  {% endif %}
+
             </div>
         </div>
+        {% endif %}
     </div>
-</section>
+    </section>
+
+    </div>
+    {% if anchor is not None %}
+        <script type='text/javascript'>
+            $(document).ready(function(){
+            window.location = '#{{ anchor }}'
+            });
+        </script>
+    {% endif %}
+
 
 {% endblock %}

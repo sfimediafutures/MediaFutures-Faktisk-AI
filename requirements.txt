@@ -10,3 +10,4 @@ grad-cam~=1.4.6
 whisper.ai
 gunicorn
 django-bootstrap5
+ffmpeg-python

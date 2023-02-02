@@ -180,6 +180,7 @@ def langauge_classifier_view(request):
     lang = None
     result_translated = None
     transcription = None
+    anchor = None
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
@@ -189,7 +190,6 @@ def langauge_classifier_view(request):
         file_path_refined = uploaded_file_url.split('\\')[-1]
         audio_path = os.path.join(settings.MEDIA_ROOT, file_path_refined)
         # load audio and pad/trim it to fit 30 seconds
-        print(audio_path)
         audio = whisper.load_audio(audio_path)
         audio = whisper.pad_or_trim(audio)
 
@@ -205,6 +205,7 @@ def langauge_classifier_view(request):
         result_translated = result_translated.text.capitalize()
         # transcription = langauge_classification_model.transcribe(audio_path)
         # transcription = transcription["text"]
+        anchor = 'results'
         print(lang)
 
         # return render(request, 'tank_classifier/check_language.html', {
@@ -214,6 +215,7 @@ def langauge_classifier_view(request):
             'language': lang,
             'text': transcription,
             'translation': result_translated,
+            'anchor': anchor,
         }
     return render(request, 'tank_classifier/lang.html', context)
 
