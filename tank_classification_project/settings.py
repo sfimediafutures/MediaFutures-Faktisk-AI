@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost','faktisk.demo.mediafutures.no']
 
-
 # Application definition
 
 INSTALLED_APPS = [
